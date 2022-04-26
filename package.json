@@ -1,7 +1,6 @@
 {
   "name": "transport-api",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -15,5 +14,13 @@
   "bugs": {
     "url": "https://github.com/Frklcedo/transport-api/issues"
   },
-  "homepage": "https://github.com/Frklcedo/transport-api#readme"
+  "homepage": "https://github.com/Frklcedo/transport-api#readme",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "express": "^4.17.3",
+    "mariadb": "^3.0.0",
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.19.0"
+  }
 }
