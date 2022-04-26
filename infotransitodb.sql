@@ -9,7 +9,7 @@ CREATE TABLE tb_motorista(
     rg_org_emissor VARCHAR(64) NOT NULL,
 
     cnh VARCHAR(20) NOT NULL,
-    situcao_carteira VARCHAR(20) NOT NULL,
+    situacao_carteira VARCHAR(20) NOT NULL,
     data_nascimento DATE NOT NULL,
     validade_cnh DATE NOT NULL,
     primeira_habilitacao DATE NOT NULL,
@@ -18,6 +18,9 @@ CREATE TABLE tb_motorista(
     nome_mae VARCHAR(64) NOT NULL,
     num_registro VARCHAR(20) NOT NULL
 );
+
+ALTER TABLE tb_motorista
+    RENAME COLUMN situcao_carteira TO  situacao_carteira;
 
 CREATE TABLE tb_veiculo(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
@@ -88,3 +91,5 @@ CREATE TABLE tb_restricoes_renavam(
 
 
 );
+
+INSERT INTO tb_motorista VALUES(default,'teste tester', '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289');

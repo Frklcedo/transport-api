@@ -1,7 +1,7 @@
 // express 
 const express = require('express');
 const app = express();
-const PORT = 5001
+const PORT = 5000
 
 app.use(express.json());
 
@@ -9,12 +9,12 @@ app.use(express.json());
 const Motorista = require('./models/Motorista');
 const Veiculo = require('./models/Veiculo');
 
-const dataretrieve = (callback) => {
+const dataretrieve = (model, ...callback) => {
 
-    const data = Motorista.findAll().then(motoristas => {
+    const data = model.findAll().then(objs => {
         const data = [];
-        motoristas.forEach(motorista =>{
-            data.push(motorista.dataValues);
+        objs.forEach(obj =>{
+            data.push(obj.dataValues);
         })
         return data;
     }).catch(err => {
@@ -24,9 +24,9 @@ const dataretrieve = (callback) => {
     return data;
 }
 
-app.get('/motoristas', (request, response) => {
-    const res = dataretrieve();
+app.get('/motorista', (request, response) => {
     // response.status(200).send('aaaaa');
+    const res = dataretrieve(Motorista);
     res.then(data => {
         console.log(data);
         // console.log(JSON.stringify(data));
