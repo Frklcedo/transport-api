@@ -1,7 +1,7 @@
 // express 
 const express = require('express');
 const app = express();
-const PORT = 5000
+const PORT = 3000
 
 app.use(express.json());
 
@@ -27,6 +27,16 @@ const dataretrieve = (model, ...callback) => {
 app.get('/motorista', (request, response) => {
     // response.status(200).send('aaaaa');
     const res = dataretrieve(Motorista);
+    res.then(data => {
+        console.log(data);
+        // console.log(JSON.stringify(data));
+        response.status(200).send(data);
+    })
+});
+
+app.get('/veiculo', (request, response) => {
+    // response.status(200).send('aaaaa');
+    const res = dataretrieve(Veiculo);
     res.then(data => {
         console.log(data);
         // console.log(JSON.stringify(data));
