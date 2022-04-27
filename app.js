@@ -8,13 +8,20 @@ app.use(express.json());
 // sequelize
 const Motorista = require('./models/Motorista');
 const Veiculo = require('./models/Veiculo');
+const Combustivel = require('./models/Combustivel')
+const Ocorrencia = require('./models/Ocorrencia')
+const MultaRENAINF = require('./models/MultaRENAINF')
+const RestricaoRENAVAM = require('./models/RestricaoRENAVAM')
 
-const dataretrieve = (model, ...callback) => {
+const dataretrieve = (model, ...callbacks) => {
 
     const data = model.findAll().then(objs => {
         const data = [];
         objs.forEach(obj =>{
             data.push(obj.dataValues);
+            if(callbacks){
+                callbacks.forEach
+            }
         })
         return data;
     }).catch(err => {
