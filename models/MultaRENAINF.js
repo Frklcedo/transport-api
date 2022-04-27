@@ -1,4 +1,6 @@
 const db = require('./db');
+const Motorista = require('./Motorista');
+const Veiculo = require('./Veiculo');
 
 // Tabela de multas RENAINF
 const MultaRENAINF = db.sequelize.define('multaRENAINF', {

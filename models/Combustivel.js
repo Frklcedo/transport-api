@@ -1,4 +1,5 @@
 const db = require('./db');
+const Veiculo = require('./Veiculo');
 
 // Tabela de combustíveis
 const Combustivel = db.sequelize.define('combustivel', {

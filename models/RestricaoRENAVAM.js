@@ -1,4 +1,6 @@
 const db = require('./db');
+const Motorista = require('./Motorista');
+const Veiculo = require('./Veiculo');
 
 // Tabela de restrições RENAVAM
 const RestricaoRENAVAM = db.sequelize.define('restricaoRENAVAM', {
