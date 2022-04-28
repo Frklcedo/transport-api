@@ -24,7 +24,7 @@ const dataretrieve = (model, modelargs) => {
             })
             return data;
         }).catch(err => {
-            return "Não foi possível se conectar com o banco de dados: erro " + err;
+            return "Não foi possível se conectar com o servidor: erro " + err;
         });
         
         return data;
