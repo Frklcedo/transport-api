@@ -16,83 +16,115 @@ const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 
 const { response } = require('express');
 
-const dataretrieve = function (model, modelargs, ref){
-    if(modelargs.reference){
-        const data = model.findAll().then(async objs => {
+const dataretrieve = (model, parent) => {
+    if(typeof parent !== 'undefined'){
+        if (parent.ordem){
+            const data = model.findAll().then(objs => {
+                const data = [];
+                objs.forEach(obj =>{
+                    let parentValues = obj.dataValues;
+                    const children = [];
+                    parent.data.forEach(child => {
+                        if(parent.model == Motorista){
+                            if(child.id_motorista == parentValues.id){
+                                children.push(child);
+                            }
+                        }
+                        else{
+                            if(child.id_veiculo == parentValues.id){
+                                children.push(child);
+                            }
+                        }
+                    });
+                    parentValues[parent.str] = children;
+                    data.push(parentValues);
+                    console.log('datainpromise', data);
+                })
+
+                return data;
+            }).catch(err => {
+                return "Não foi possível se conectar com o banco de dados: erro " + err;
+            });
+            
+            return data;
+
+        }
+        else{
+            let reference = {
+                order: ['id_veiculo']
+            }
+            if(parent.model == Motorista){
+                reference.order[0] = 'id_motorista'
+            }
+            const data = model.findAll(reference).then(childobj => {
+    
+                parent.data.forEach(parentobj => {
+    
+                    const children = [];
+                    childobj.forEach(childdata => {
+    
+                        const childDataValue = childdata.dataValues;
+                        if(childDataValue[reference.order] == parentobj.id){
+                            children.push(childDataValue);
+                        }
+                        
+                    });             
+                    
+                    parentobj[parent.str] = children;
+                });
+                
+                console.log(parent.data)
+                return parent.data;
+    
+            }).catch(err => console.log(err));
+            return data;
+        }
+    }
+    else{
+        
+        const data = model.findAll().then(objs => {
             const data = [];
             objs.forEach(obj =>{
                 let parentValues = obj.dataValues;
-                if(modelargs.callbacks){
-                    let childrenValues = {};
-                    modelargs.callbacks.forEach(async callback => {
-                       const cbresult = await callback.then(cbresolve => cbresolve);
-                       childrenValues = {...childrenValues, ...cbresult};
-                    });
-                    data.push({...parentValues, ...childrenValues});
-                }
-                else{
-                    data.push(parentValues);
-                }
+                data.push(parentValues);
+                console.log('datainpromise', data);
             })
             return data;
         }).catch(err => {
             return "Não foi possível se conectar com o banco de dados: erro " + err;
         });
-    }
-    else{
-
-    }
-    const data = model.findAll().then(objs => {
-        const data = [];
-        objs.forEach(obj =>{
-            let parentValues = obj.dataValues;
-            if(modelargs.callbacks){
-                let childrenValues = {};
-                modelargs.callbacks.forEach(callback => {
-                   const cbresult =callback;
-                   childrenValues = {...childrenValues, ...cbresult};
-                });
-                data.push({...parentValues, ...childrenValues});
-            }
-            else{
-                data.push(parentValues);
-            }
-        })
+        
         return data;
-    }).catch(err => {
-        return "Não foi possível se conectar com o banco de dados: erro " + err;
-    });
-    
-    return data;
     }
-    const data = model.findAll().then(objs => {
-        const data = [];
-        objs.forEach(obj =>{
-            let parentValues = obj.dataValues;
-            data.push(parentValues);
-            console.log('datainpromise', data);
-        })
-        return data;
-    }).catch(err => {
-        return "Não foi possível se conectar com o banco de dados: erro " + err;
-    });
-    
-    return data;
 
 }
 
 app.get('/', (request, response) => {
     // response.status(200).send('aaaaa');
-    const res = dataretrieve(Motorista);
-    res.then(data => {
+    dataretrieve(Veiculo).then(data => {
         console.log(data);
-        // data.forEach(motorista => {
-        //     const 
-        // });
-        // console.log(JSON.stringify(data));
+        return data;
+    }).then(data => {
+        return dataretrieve(Combustivel,{ model: Veiculo, data: data, str: "combustivel"});
+    }).then(data => {
+        return dataretrieve(Ocorrencia,{ model: Veiculo, data: data, str: "ocorrencias"});
+    }).then(data => {
+        return dataretrieve(MultaRENAINF,{ model: Veiculo, data: data, str: "multasRENAINF"});
+    }).then(data => {
+        return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
+    }).then(data => {
+        return dataretrieve(Motorista, {model: Motorista,data: data, str: "veiculosPossuidos", ordem: 'desc'});
+    }).then(data => {
         response.status(200).send(data);
-    })
+    });
+    // console.log(JSON.stringify(data));
 });
+
+
+// const Combustivel = require('./models/Combustivel')
+// const Ocorrencia = require('./models/Ocorrencia')
+// const MultaRENAINF = require('./models/MultaRENAINF')
+// const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 
 app.get('/motorista', (request, response) => {
     // response.status(200).send('aaaaa');
@@ -106,7 +138,26 @@ app.get('/motorista', (request, response) => {
 
 app.get('/veiculo', (request, response) => {
     // response.status(200).send('aaaaa');
-    const res = dataretrieve(Veiculo,{});
+    dataretrieve(Veiculo).then(data => {
+        console.log(data);
+        return data;
+    }).then(data => {
+        return dataretrieve(Combustivel,{ model: Veiculo, data: data, str: "combustivel"});
+    }).then(data => {
+        return dataretrieve(Ocorrencia,{ model: Veiculo, data: data, str: "ocorrencias"});
+    }).then(data => {
+        return dataretrieve(MultaRENAINF,{ model: Veiculo, data: data, str: "multasRENAINF"});
+    }).then(data => {
+        return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
+    }).then(data => {
+        response.status(200).send(data);
+    });
+    // console.log(JSON.stringify(data));
+});
+
+app.get('/veiculo-uni', (request, response) => {
+    // response.status(200).send('aaaaa');
+    const res = dataretrieve(Veiculo);
     res.then(data => {
         console.log(data);
         // console.log(JSON.stringify(data));
