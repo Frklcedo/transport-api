@@ -93,3 +93,8 @@ CREATE TABLE tb_restricoes_renavam(
 );
 
 INSERT INTO tb_motorista VALUES(default,'teste tester', '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289');
+
+INSERT INTO tb_veiculo VALUES(default,'AAA2A22','414164984','15658935ac48JKUKH', 'ford', 'ba', 2022, 'ka', 2022, 2022, 'preto', 1, 1, 1, 1);
+INSERT INTO tb_veiculo VALUES(default,'BAA2I42','322364984','1GTASD35ac48JKUKH', 'renault', 'ba', 2022, 'sandeiro', 2022, 2022, 'preto', 1, 1, 1, 1);
+
+SELECT * FROM tb_motorista LEFT JOIN tb_veiculo ON tb_motorista.id = tb_veiculo.id_motorista;

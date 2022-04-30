@@ -14,54 +14,59 @@ const MultaRENAINF = require('./models/MultaRENAINF')
 const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 const { response } = require('express');
 
-const dataretrieve = (model, modelargs) => {
+const dataretrieve = function (model, modelargs, ref){
     if(modelargs.reference){
-        
-        const data = model.findAll(model.reference).then(objs => {
-            const data = [];
-            objs.forEach(obj =>{
-                data.push(obj.dataValues);
-            })
-            return data;
-        }).catch(err => {
-            return "Não foi possível se conectar com o banco de dados: erro " + err;
-        });
-        
-        return data;
-        
-    }
-    else{
-        const data = model.findAll().then(objs => {
+        const data = model.findAll().then(async objs => {
             const data = [];
             objs.forEach(obj =>{
                 let parentValues = obj.dataValues;
                 if(modelargs.callbacks){
                     let childrenValues = {};
-                    modelargs.callbacks.forEach(callback => {
-                        const cbresult = callback.then(cbpromise => {
-                            return cbpromise;
-                        });
-                        console.log('algo', cbresult);
-                        childrenValues = {...childrenValues, ...cbresult};
+                    modelargs.callbacks.forEach(async callback => {
+                       const cbresult = await callback.then(cbresolve => cbresolve);
+                       childrenValues = {...childrenValues, ...cbresult};
                     });
                     data.push({...parentValues, ...childrenValues});
                 }
                 else{
                     data.push(parentValues);
                 }
-                console.log('datainpromise', data);
             })
             return data;
         }).catch(err => {
             return "Não foi possível se conectar com o banco de dados: erro " + err;
         });
-        if(modelargs.string){
-            dataobj = {};
-            dataobj[modelargs.string] = data;
-            return dataobj;
-        }
-        return data;
     }
+    else{
+
+    }
+    const data = model.findAll().then(objs => {
+        const data = [];
+        objs.forEach(obj =>{
+            let parentValues = obj.dataValues;
+            if(modelargs.callbacks){
+                let childrenValues = {};
+                modelargs.callbacks.forEach(callback => {
+                   const cbresult =callback;
+                   childrenValues = {...childrenValues, ...cbresult};
+                });
+                data.push({...parentValues, ...childrenValues});
+            }
+            else{
+                data.push(parentValues);
+            }
+        })
+        return data;
+    }).catch(err => {
+        return "Não foi possível se conectar com o banco de dados: erro " + err;
+    });
+    if(modelargs.string){
+        dataobj = {};
+        dataobj[modelargs.string] = data;
+        return dataobj;
+    }
+    console.log(data);
+    return data;
 
 }
 
@@ -71,11 +76,7 @@ app.get('/fulldata', (request, response) => {
         callbacks: [
             dataretrieve(Veiculo,{
                 string: 'veiculosPossuidos',
-                reference: {
-                    where: {
-                        id_motorista: 0
-                    }
-                }
+                reference: true
             })
         ]
     });
@@ -98,7 +99,7 @@ app.get('/motorista', (request, response) => {
 
 app.get('/veiculo', (request, response) => {
     // response.status(200).send('aaaaa');
-    const res = dataretrieve(Veiculo);
+    const res = dataretrieve(Veiculo,{});
     res.then(data => {
         console.log(data);
         // console.log(JSON.stringify(data));
