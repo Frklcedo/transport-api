@@ -16,36 +16,56 @@ const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 
 const { response } = require('express');
 
-const dataretrieve = (model, modelargs) => {
-    if(modelargs){
+const dataretrieve = (model, parent, modelstring) => {
+    if(parent){
+        
+        parent.data.map(parentobj => {
+            if (parent.model == Motorista){
+                let reference = {
+                    where: {
+                        id_motorista: parentobj.id
+                    }
+                }
+            }
+            else {
+                let reference = {
+                    where: {
+                        id_veiculo: parentobj.id
+                    }
+               }
+            }
+            parentobj = model.findAll(reference).then(objs => {
+                const childdata = [];
+                objs.forEach(obj => {
+                    childdata.push(obj.dataValues);
+                });
+                parentobj[modelstring] = childdata;
+                return parentobj;
+            });
 
-    const data = model.find().then(objs => {
-        const data = [];
-        objs.forEach(obj =>{
-            let parentValues = obj.dataValues;
-            data.push(parentValues);
-            console.log('datainpromise', data);
-        })
-        return data;
-    }).catch(err => {
-        return "Não foi possível se conectar com o banco de dados: erro " + err;
-    });
-    
-    return data;
+            return parentobj;
+
+        });
+
+        return parent.data;
+
     }
-    const data = model.findAll().then(objs => {
-        const data = [];
-        objs.forEach(obj =>{
-            let parentValues = obj.dataValues;
-            data.push(parentValues);
-            console.log('datainpromise', data);
-        })
+    else{
+        
+        const data = model.findAll().then(objs => {
+            const data = [];
+            objs.forEach(obj =>{
+                let parentValues = obj.dataValues;
+                data.push(parentValues);
+                console.log('datainpromise', data);
+            })
+            return data;
+        }).catch(err => {
+            return "Não foi possível se conectar com o banco de dados: erro " + err;
+        });
+        
         return data;
-    }).catch(err => {
-        return "Não foi possível se conectar com o banco de dados: erro " + err;
-    });
-    
-    return data;
+    }
 
 }
 
@@ -54,9 +74,10 @@ app.get('/', (request, response) => {
     const res = dataretrieve(Motorista);
     res.then(data => {
         console.log(data);
-        // data.forEach(motorista => {
-        //     const 
-        // });
+        const resmotorista = dataretrieve(Motorista, {
+            model: Motorista,
+            data 
+        });
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
     })
