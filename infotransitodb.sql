@@ -95,6 +95,7 @@ CREATE TABLE tb_restricoes_renavam(
 INSERT INTO tb_motorista VALUES(default,'teste tester', '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289');
 INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001', 'Chevrolet', 'ba', '2018','Corsa','2012', '2022', 'cinza', true, false, true, 1);
 INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
+INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
 INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', '1','1');
 INSERT INTO tb_restricoes_renavam VALUES(default, '3','ativa','2021-11-19',default,'1','1');
 INSERT INTO tb_ocorrencias VALUES(default, 'Velocidade máxima ultrapassada', '2022-02-21', '1', '1');

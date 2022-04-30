@@ -155,6 +155,19 @@ app.get('/veiculo', (request, response) => {
     // console.log(JSON.stringify(data));
 });
 
+// app.get('/veiculo/:placa', (request, response) => {
+//     const placa = request.params.placa;
+//     Veiculo.findAll({
+//         where: {
+//             placa
+//         }
+//     }).then(data => {
+//         return dataretrieve(Motorista, {model: Veiculo, data: data, str: "dono"});
+//     }).then(data => {
+//         response.status(200).send(data);
+//     });
+// });
+
 app.get('/veiculo-uni', (request, response) => {
     // response.status(200).send('aaaaa');
     const res = dataretrieve(Veiculo);
