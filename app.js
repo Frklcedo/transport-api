@@ -155,18 +155,37 @@ app.get('/veiculo', (request, response) => {
     // console.log(JSON.stringify(data));
 });
 
-// app.get('/veiculo/:placa', (request, response) => {
-//     const placa = request.params.placa;
-//     Veiculo.findAll({
-//         where: {
-//             placa
-//         }
-//     }).then(data => {
-//         return dataretrieve(Motorista, {model: Veiculo, data: data, str: "dono"});
-//     }).then(data => {
-//         response.status(200).send(data);
-//     });
-// });
+app.get('/veiculo/:placa', (request, response) => {
+    const placa = request.params.placa;
+    Veiculo.findAll({
+        where: {
+            placa
+        }
+    }).then(data => {
+        const arr = []
+        data.forEach(dataValues => {
+            arr.push(dataValues.dataValues);
+        });
+        return arr;
+    }).then(data => {
+        return dataretrieve(Combustivel,{ model: Veiculo, data: data, str: "combustivel"});
+    }).then(data => {
+        return dataretrieve(Ocorrencia,{ model: Veiculo, data: data, str: "ocorrencias"});
+    }).then(data => {
+        return dataretrieve(MultaRENAINF,{ model: Veiculo, data: data, str: "multasRENAINF"});
+    }).then(data => {
+        return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
+    }).then(data => {
+        console.log(data) ;
+        return Motorista.findByPk(data[0].id_motorista).then(motorista => {
+            data[0].motorista = motorista;
+            return data;
+        })
+
+    }).then(data => {
+        response.status(200).send(data);
+    });
+});
 
 app.get('/veiculo-uni', (request, response) => {
     // response.status(200).send('aaaaa');
