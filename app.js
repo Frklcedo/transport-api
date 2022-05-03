@@ -15,6 +15,7 @@ const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 
 
 const { response } = require('express');
+const req = require('express/lib/request');
 
 const dataretrieve = (model, parent) => {
     if(typeof parent !== 'undefined'){
@@ -133,6 +134,40 @@ app.get('/motorista', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
+    })
+});
+
+app.get('/motorista/:id', (request, response) => {
+    Veiculo.findAll({
+        where: {
+            id_motorista: request.params.id
+        }
+    }).then(data => {
+        const arr = [];
+        data.forEach(carro => {
+            arr.push(carro.dataValues);
+        })
+        return arr;
+    }).then(data => {
+        return dataretrieve(Combustivel,{ model: Veiculo, data: data, str: "combustivel"});
+    }).then(data => {
+        return dataretrieve(Ocorrencia,{ model: Veiculo, data: data, str: "ocorrencias"});
+    }).then(data => {
+        return dataretrieve(MultaRENAINF,{ model: Veiculo, data: data, str: "multasRENAINF"});
+    }).then(data => {
+        return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
+    }).then(data => {
+        Motorista.findByPk(request.params.id).then(motorista => {
+            const motoristadono = [
+                {
+                    ...motorista.dataValues,
+                    veiculosPossuidos: data
+                }
+            ]
+            return motoristadono;
+        }).then(data => {
+            response.status(200).send(data);
+        });
     })
 });
 
