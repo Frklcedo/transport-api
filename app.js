@@ -16,6 +16,7 @@ const RestricaoRENAVAM = require('./models/RestricaoRENAVAM');
 
 const { response } = require('express');
 const req = require('express/lib/request');
+const res = require('express/lib/response');
 
 const dataretrieve = (model, parent) => {
     if(typeof parent !== 'undefined'){
@@ -117,6 +118,8 @@ app.get('/', (request, response) => {
         return dataretrieve(Motorista, {model: Motorista,data: data, str: "veiculosPossuidos", ordem: 'desc'});
     }).then(data => {
         response.status(200).send(data);
+    }).catch(err => {
+        response.status(404).send(err);
     });
     // console.log(JSON.stringify(data));
 });
@@ -211,7 +214,8 @@ app.get('/veiculo/:placa', (request, response) => {
     }).then(data => {
         return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
     }).then(data => {
-        console.log(data) ;
+        console.log(data);
+        console.log(data[0].id_motorista);
         return Motorista.findByPk(data[0].id_motorista).then(motorista => {
             data[0].motorista = motorista;
             return data;
@@ -219,6 +223,9 @@ app.get('/veiculo/:placa', (request, response) => {
 
     }).then(data => {
         response.status(200).send(data);
+    }).catch(err => {
+        console.log(err)
+        response.status(404).send(err);
     });
 });
 
