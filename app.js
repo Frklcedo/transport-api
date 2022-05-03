@@ -78,7 +78,10 @@ const dataretrieve = (model, parent) => {
                 console.log(parent.data)
                 return parent.data;
     
-            }).catch(err => console.log(err));
+            }).catch(err => {
+                console.log(err);
+                return "Não foi possível se conectar com o banco de dados: erro " + err;
+            });
             return data;
         }
     }
@@ -137,7 +140,10 @@ app.get('/motorista', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err => {
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+    });
 });
 
 app.get('/motorista/:id', (request, response) => {
@@ -171,7 +177,10 @@ app.get('/motorista/:id', (request, response) => {
         }).then(data => {
             response.status(200).send(data);
         });
-    })
+    }).catch(err =>{
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+    });
 });
 
 app.get('/veiculo', (request, response) => {
@@ -189,6 +198,9 @@ app.get('/veiculo', (request, response) => {
         return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
     }).then(data => {
         response.status(200).send(data);
+    }).catch(err => {
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
     });
     // console.log(JSON.stringify(data));
 });
@@ -219,12 +231,12 @@ app.get('/veiculo/:placa', (request, response) => {
         return Motorista.findByPk(data[0].id_motorista).then(motorista => {
             data[0].motorista = motorista;
             return data;
-        })
+        });
 
     }).then(data => {
         response.status(200).send(data);
     }).catch(err => {
-        console.log(err)
+        console.log('Não foi possível acessar o banco: erro ',err);
         response.status(404).send(err);
     });
 });
@@ -236,7 +248,10 @@ app.get('/veiculo-uni', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err =>{
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+    });
 });
 
 app.get('/combustivel', (request, response) => {
@@ -246,7 +261,10 @@ app.get('/combustivel', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err => {
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+    });
 });
 
 app.get('/ocorrencia', (request, response) => {
@@ -256,7 +274,11 @@ app.get('/ocorrencia', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err =>{
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+
+    });
 });
 
 app.get('/multarenainf', (request, response) => {
@@ -266,7 +288,11 @@ app.get('/multarenainf', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err => {
+
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+    });
 });
 
 app.get('/restricaorenavam', (request, response) => {
@@ -276,7 +302,11 @@ app.get('/restricaorenavam', (request, response) => {
         console.log(data);
         // console.log(JSON.stringify(data));
         response.status(200).send(data);
-    })
+    }).catch(err => {
+        console.log('Não foi possível acessar o banco: erro ',err);
+        response.status(404).send(err);
+
+    });
 });
 
 
