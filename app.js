@@ -224,6 +224,7 @@ app.get('/veiculo/:placa', (request, response) => {
     }).then(data => {
         return dataretrieve(MultaRENAINF,{ model: Veiculo, data: data, str: "multasRENAINF"});
     }).then(data => {
+        console.log(data)
         return dataretrieve(RestricaoRENAVAM,{ model: Veiculo, data: data, str: "restricaoRENAVAM"});
     }).then(data => {
         console.log(data);

@@ -106,3 +106,9 @@ UPDATE tb_ocorrencias SET status_ocorrencia = 'ativa' WHERE id = 1;
 ALTER TABLE tb_multas_renainf
     ADD COLUMN status_multa VARCHAR(64) NOT NULL;
 UPDATE tb_multas_renainf SET status_multa = 'ativa' WHERE id = 1;
+                                                                                    
+INSERT INTO tb_motorista VALUES(default,'saljollanipe', '1212565699', 'ba', 'ssp', '112213432342', 'vencida', '1998-04-12', '2025-12-31', '2021-01-01', 'a', 'luffy da silva', 'nami de oliveira', '12344312443271892', '18818818818');                                                                       
+
+ALTER TABLE tb_motorista
+    ADD COLUMN cpf CHAR(11) NOT NULL;
+UPDATE tb_motorista SET cpf = '81898801532' WHERE id = 1;
