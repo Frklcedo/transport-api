@@ -12,6 +12,10 @@ const Ocorrencia = db.sequelize.define('ocorrencia', {
         type: db.Sequelize.DATE,
         allowNull: false
     },
+    status_ocorrencia: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
     id_motorista: {
         type: db.Sequelize.INTEGER,
         references: {

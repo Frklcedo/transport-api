@@ -20,6 +20,10 @@ const MultaRENAINF = db.sequelize.define('multaRENAINF', {
         type: db.Sequelize.FLOAT,
         allowNull: false
     },
+    status_multa: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
     id_motorista: {
         type: db.Sequelize.INTEGER,
         references: {

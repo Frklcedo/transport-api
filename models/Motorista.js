@@ -11,6 +11,11 @@ const Motorista = db.sequelize.define('motorista', {
         allowNull: false,
         unique: true
     },
+    cpf: {
+        type: db.Sequelize.STRING,
+        allowNull: false,
+        unique: true
+    },
     rg_uf: {
         type: db.Sequelize.STRING,
         allowNull: false
