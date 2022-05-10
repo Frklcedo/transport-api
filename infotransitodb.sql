@@ -27,6 +27,7 @@ CREATE TABLE tb_veiculo(
     chassi VARCHAR(20) NOT NULL,
     fabricante VARCHAR(20) NOT NULL,
     uf CHAR(2) NOT NULL,
+    cidade VARCHAR(64) NOT NULL, 
     ano INT(4) NOT NULL,
     modelo VARCHAR(64) NOT NULL,
     ano_modelo INT(4) NOT NULL,
@@ -55,6 +56,7 @@ CREATE TABLE tb_multas_renainf(
     data_expedida DATE NOT NULL,
     data_vencimento DATE NOT NULL,
     valor_multa FLOAT NOT NULL,
+    status_multa VARCHAR(64) NOT NULL,
     id_motorista INT NOT NULL,
     id_veiculo INT NOT NULL,
 
@@ -66,6 +68,7 @@ CREATE TABLE tb_ocorrencias(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     titulo_ocorrencia VARCHAR(32) NOT NULL,
     data_ocorrencia DATE NOT NULL,
+    status_ocorrencia VARCHAR(64) NOT NULL,
     id_motorista INT NOT NULL,
     id_veiculo INT NOT NULL,
 
@@ -90,15 +93,8 @@ CREATE TABLE tb_restricoes_renavam(
 
 );
 
-INSERT INTO tb_motorista VALUES(default,'teste tester', '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289', '18818818818');
-INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001', 'Ford', 'ba', '2018','Fiesta','2012', '2022', 'Cinza', true, false, true, 1);
-INSERT INTO tb_veiculo VALUES(default,'AUJ0B38', '132013044', '9CG126GD04A403123', 'Fiat', 'ba', '2022','uno','2015', '2022', 'Branco', false, true, false, 1);
-INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
-INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
-INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', '1','1');
-INSERT INTO tb_restricoes_renavam VALUES(default, '3','ativa','2021-11-19',default,'1','1');
-INSERT INTO tb_ocorrencias VALUES(default, 'Velocidade máxima ultrapassada', '2022-02-21', '1', '1');
 
+/*
 ALTER TABLE tb_ocorrencias
     ADD COLUMN status_ocorrencia VARCHAR(64) NOT NULL;
 UPDATE tb_ocorrencias SET status_ocorrencia = 'ativa' WHERE id = 1;
@@ -107,8 +103,36 @@ ALTER TABLE tb_multas_renainf
     ADD COLUMN status_multa VARCHAR(64) NOT NULL;
 UPDATE tb_multas_renainf SET status_multa = 'ativa' WHERE id = 1;
                                                                                     
-INSERT INTO tb_motorista VALUES(default,'saljollanipe', '1212565699', 'ba', 'ssp', '112213432342', 'vencida', '1998-04-12', '2025-12-31', '2021-01-01', 'a', 'luffy da silva', 'nami de oliveira', '12344312443271892', '18818818818');                                                                       
-
 ALTER TABLE tb_motorista
     ADD COLUMN cpf CHAR(11) NOT NULL;
 UPDATE tb_motorista SET cpf = '81898801532' WHERE id = 1;
+
+*/
+
+INSERT INTO tb_motorista VALUES(default,'teste tester', '18818818818' , '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289');
+
+INSERT INTO tb_motorista VALUES(default,'saljollanipe', '19833312344', '1212565699', 'ba', 'ssp', '112213432342', 'vencida', '1998-04-12', '2025-12-31', '2021-01-01', 'a', 'luffy da silva', 'nami de oliveira', '12344312443271892'); 
+
+
+INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001', 'Ford', 'Salvador', 'ba', '2018','Fiesta','2012', '2022', 'Cinza', true, false, true, 1);
+
+INSERT INTO tb_veiculo VALUES(default,'AUJ0B38', '132013044', '9CG126GD04A403123', 'Fiat', 'Salvador', 'ba', '2022','uno','2015', '2022', 'Branco', false, true, false, 1);
+
+
+INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
+
+INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
+
+
+INSERT INTO tb_restricoes_renavam VALUES(default, '3','ativa','2021-11-19',default,'1','1');
+
+
+INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', 'ativa', '1','1');
+
+
+INSERT INTO tb_ocorrencias VALUES(default, 'Velocidade máxima ultrapassada', '2022-02-21', 'ativa', '1', '1');
+
+
+
+SET FOREIGN_KEY_CHECKS = 0;
+SET FOREIGN_KEY_CHECKS = 1;
