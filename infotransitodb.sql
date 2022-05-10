@@ -114,9 +114,9 @@ INSERT INTO tb_motorista VALUES(default,'teste tester', '18818818818' , '1234567
 INSERT INTO tb_motorista VALUES(default,'saljollanipe', '19833312344', '1212565699', 'ba', 'ssp', '112213432342', 'vencida', '1998-04-12', '2025-12-31', '2021-01-01', 'a', 'luffy da silva', 'nami de oliveira', '12344312443271892'); 
 
 
-INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001', 'Ford', 'Salvador', 'ba', '2018','Fiesta','2012', '2022', 'Cinza', true, false, true, 1);
+INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001', 'Ford', 'ba', 'Salvador', '2018','Fiesta','2012', '2022', 'Cinza', true, false, true, 1);
 
-INSERT INTO tb_veiculo VALUES(default,'AUJ0B38', '132013044', '9CG126GD04A403123', 'Fiat', 'Salvador', 'ba', '2022','uno','2015', '2022', 'Branco', false, true, false, 1);
+INSERT INTO tb_veiculo VALUES(default,'AUJ0B38', '132013044', '9CG126GD04A403123', 'Fiat', 'ba', 'Salvador', '2022','uno','2015', '2022', 'Branco', false, true, false, 1);
 
 
 INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
