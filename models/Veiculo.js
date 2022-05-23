@@ -27,6 +27,10 @@ const Veiculo = db.sequelize.define('veiculo', {
         type: db.Sequelize.STRING,
         allowNull: false
     },
+    cidade: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
     ano: {
         type: db.Sequelize.INTEGER,
         allowNull: false
