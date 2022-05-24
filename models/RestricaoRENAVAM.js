@@ -8,6 +8,10 @@ const RestricaoRENAVAM = db.sequelize.define('restricaoRENAVAM', {
         type: db.Sequelize.STRING,
         allowNull: false
     },
+    titulo_restricao: {
+        type: db.Sequelize.STRING,
+        allowNull: false
+    },
     status_restricao: {
         type: db.Sequelize.STRING,
         allowNull: false

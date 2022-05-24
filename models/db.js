@@ -1,7 +1,7 @@
 // sequelize
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('infotransitodb', 'root', '', {
+const sequelize = new Sequelize('infotransitodb', 'frkl', 'Frkl.db', {
     host: 'localhost',
     dialect: 'mysql'
 })

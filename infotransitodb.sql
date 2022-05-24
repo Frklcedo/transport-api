@@ -80,6 +80,7 @@ CREATE TABLE tb_ocorrencias(
 CREATE TABLE tb_restricoes_renavam(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     tipo_restricao VARCHAR(64) NOT NULL,
+    titulo_restricao VARCHAR(64) NOT NULL,
     status_restricao VARCHAR(64) NOT NULL,
     data_efetuacao DATE,
     is_renajud VARCHAR(64),
@@ -107,6 +108,9 @@ ALTER TABLE tb_motorista
     ADD COLUMN cpf CHAR(11) NOT NULL;
 UPDATE tb_motorista SET cpf = '81898801532' WHERE id = 1;
 
+ALTER TABLE tb_restricoes_renavam
+    ADD COLUMN titulo_restricao VARCHAR(64) NOT NULL;
+ALTER TABLE tb_restricoes_renavam MODIFY COLUMN titulo_restricao VARCHAR(64) AFTER tipo_restricao;
 */
 
 INSERT INTO tb_motorista VALUES(default,'teste tester', '18818818818' , '1234567891', 'ba', 'ssp', '98776544321', 'legal', '1999-12-27', '2022-12-31', '2018-01-01', 'ab', 'clovis de barros', 'josefina de jesus', '48932472819471289');
@@ -124,7 +128,10 @@ INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
 INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
 
 
-INSERT INTO tb_restricoes_renavam VALUES(default, '3','ativa','2021-11-19',default,'1','1');
+INSERT INTO tb_restricoes_renavam VALUES(default, 'financeira', 'bco bahia', 'ativa','2021-11-19',default,'1','1');
+
+INSERT INTO tb_restricoes_renavam VALUES(default, 'judiciaria', 'bloq renajud', 'ativa','2021-11-19', 'transferencia', '1', '1');
+
 
 
 INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', 'ativa', '1','1');
