@@ -135,6 +135,7 @@ INSERT INTO tb_restricoes_renavam VALUES(default, 'judiciaria', 'bloq renajud', 
 
 
 INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', 'ativa', '1','1');
+INSERT INTO tb_multas_renainf VALUES(default, 'Dirigir alcoolizado', '2022-05-11', '2022-08-22','540.49', 'ativa', '1','1');
 
 
 INSERT INTO tb_ocorrencias VALUES(default, 'Velocidade máxima ultrapassada', '2022-02-21', 'ativa', '1', '1');
