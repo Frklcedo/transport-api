@@ -23,7 +23,8 @@ CREATE TABLE tb_motorista(
 CREATE TABLE tb_veiculo(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     placa CHAR(7) UNIQUE NOT NULL,
-    renavam VARCHAR(20) NOT NULL,
+    renavam VARCHAR(20) NOT NULL,INSERT INTO tb_combustivel VALUES(default, 'gasolina', 2);
+
     chassi VARCHAR(20) NOT NULL,
     fabricante VARCHAR(20) NOT NULL,
     uf CHAR(2) NOT NULL,
@@ -122,8 +123,13 @@ INSERT INTO tb_veiculo VALUES(default,'ANN2F42', '144003058', '9BG116GW04C400001
 
 INSERT INTO tb_veiculo VALUES(default,'AUJ0B38', '132013044', '9CG126GD04A403123', 'Fiat', 'ba', 'Salvador', '2022','uno','2015', '2022', 'Branco', false, true, false, 1);
 
+INSERT INTO tb_veiculo VALUES(default, 'JRY0629', '4741324', '8HAUI4879132FQ', 'Volkswagen', 'ba', 'salvador', 2016, 'Space Fox',2014,2022,'preto', true, false, true, 2);
 
 INSERT INTO tb_combustivel VALUES(default, 'flex', 1);
+
+INSERT INTO tb_combustivel VALUES(default, 'gasolina', 2);
+
+INSERT INTO tb_combustivel VALUES(default, 'gasolina', 3);
 
 INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
 
@@ -135,6 +141,9 @@ INSERT INTO tb_restricoes_renavam VALUES(default, 'judiciaria', 'bloq renajud', 
 
 
 INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2022-02-21', '2022-06-22','290.00', 'ativa', '1','1');
+
+INSERT INTO tb_multas_renainf VALUES(default, 'Velocidade limite excedida', '2021-07-28', '2022-06-22','156.00', 'ativa', '2','3');
+
 INSERT INTO tb_multas_renainf VALUES(default, 'Dirigir alcoolizado', '2022-05-11', '2022-08-22','540.49', 'ativa', '1','1');
 
 
