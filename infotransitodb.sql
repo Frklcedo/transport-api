@@ -23,7 +23,7 @@ CREATE TABLE tb_motorista(
 CREATE TABLE tb_veiculo(
     id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     placa CHAR(7) UNIQUE NOT NULL,
-    renavam VARCHAR(20) NOT NULL,INSERT INTO tb_combustivel VALUES(default, 'gasolina', 2);
+    renavam VARCHAR(20) NOT NULL,
 
     chassi VARCHAR(20) NOT NULL,
     fabricante VARCHAR(20) NOT NULL,
@@ -133,6 +133,7 @@ INSERT INTO tb_combustivel VALUES(default, 'gasolina', 3);
 
 INSERT INTO tb_combustivel VALUES(default, 'gas', 1);
 
+INSERT INTO tb_combustivel VALUES(default, 'gasolina', 2);
 
 INSERT INTO tb_restricoes_renavam VALUES(default, 'financeira', 'bco bahia', 'ativa','2021-11-19',default,'1','1');
 
